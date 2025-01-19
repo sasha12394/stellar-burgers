@@ -6,4 +6,4 @@ import { useSelector } from '../../services/store';
 export const AppHeader: FC = () => {
   const user = useSelector(getUserData);
   return <AppHeaderUI userName={user?.name} />;
-};;
+};

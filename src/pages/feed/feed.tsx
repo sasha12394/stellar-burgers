@@ -12,13 +12,12 @@ import {
 export const Feed: FC = () => {
   /** TODO: взять переменную из стора */
   const dispatch = useDispatch();
-  const fetchFeeds = useCallback(() => dispatch(getFeeds()), [dispatch]);
   const isLoading = useSelector(getIsLoading);
+  const orders: TOrder[] = useSelector(getAllFeeds);
 
   useEffect(() => {
-    fetchFeeds();
-  }, [dispatch]);
-  const orders: TOrder[] = useSelector(getAllFeeds);
+    dispatch(getFeeds());
+  }, []);
 
   if (isLoading) {
     return <Preloader />;
@@ -27,7 +26,7 @@ export const Feed: FC = () => {
     <FeedUI
       orders={orders}
       handleGetFeeds={() => {
-        fetchFeeds;
+        dispatch(getFeeds());
       }}
     />
   );

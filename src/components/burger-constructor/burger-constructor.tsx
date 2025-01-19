@@ -12,7 +12,6 @@ import { isAuthenticated } from '../../services/slices/user';
 import { useDispatch, useSelector } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
 
-
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const dispatch = useDispatch();
@@ -25,7 +24,8 @@ export const BurgerConstructor: FC = () => {
   const isAuth = useSelector(isAuthenticated);
 
   const onOrderClick = () => {
-    if (!constructorItems.bun || orderRequest) return; if (!isAuth) {
+    if (!constructorItems.bun || orderRequest) return;
+    if (!isAuth) {
       return navigate('/login');
     }
     if (orderRequest) {
@@ -52,7 +52,6 @@ export const BurgerConstructor: FC = () => {
       ),
     [constructorItems]
   );
-
 
   return (
     <BurgerConstructorUI

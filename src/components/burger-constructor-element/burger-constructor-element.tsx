@@ -17,12 +17,10 @@ export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
 
     const handleMoveUp = () => {
       dispatch(reorderConstructor({ from: index, to: index - 1 }));
-
     };
 
     const handleClose = () => {
       dispatch(removeFromConstructor(Number(ingredient.id)));
-
     };
 
     return (

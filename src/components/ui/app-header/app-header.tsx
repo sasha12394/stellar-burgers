@@ -13,7 +13,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
   <header className={styles.header}>
     <nav className={`${styles.menu} p-4`}>
       <div className={styles.menu_part_left}>
-      <NavLink
+        <NavLink
           to='/'
           className={({ isActive }) =>
             `${styles.link} ${isActive ? styles.link_active : ''}`
