@@ -1,6 +1,6 @@
-import { getFeedsApi, getOrderByNumberApi } from '@api';
+import { getFeedsApi, getOrderByNumberApi } from '../../../utils/burger-api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TOrder } from '@utils-types';
+import { TOrder } from '../../../utils/types';
 
 type TFeedsState = {
   orders: TOrder[];
@@ -71,4 +71,4 @@ export const {
   getIsLoading
 } = slice.selectors;
 export const { clearSelectedOrder } = slice.actions;
-export default slice.reducer;
+export const feedReducer = slice.reducer;
