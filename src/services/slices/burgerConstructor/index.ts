@@ -50,4 +50,5 @@ export const {
   reorderConstructor,
   resetConstructor
 } = slice.actions;
-export default slice.reducer;
+
+export const builderReducer = slice.reducer;

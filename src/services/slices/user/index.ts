@@ -6,14 +6,14 @@ import {
   logoutApi,
   registerUserApi,
   updateUserApi
-} from '@api';
+} from '../../../utils/burger-api';
 import {
   SerializedError,
   createAsyncThunk,
   createSlice
 } from '@reduxjs/toolkit';
 import { deleteCookie, setCookie } from '../../../utils/cookie';
-import { TUser, RequestStatus } from '@utils-types';
+import { TUser, RequestStatus } from '../../../utils/types';
 
 type TUserState = {
   isAuthChecked: boolean;
@@ -186,4 +186,4 @@ export const {
   getError
 } = slice.selectors;
 export const { setUser } = slice.actions;
-export default slice.reducer;
+export const userReducer = slice.reducer;
