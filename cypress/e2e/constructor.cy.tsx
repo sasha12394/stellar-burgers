@@ -1,6 +1,13 @@
 import { BASE_URL, testUrl } from '../../src/utils/urlTest';
 import cypress from 'cypress';
 
+
+const FLUORESCENT_BULKA = 'Флюоресцентная булка R2-D3';
+const MOLUSK_MEAT = 'Мясо бессмертных моллюсков Protostomia';
+const MODAL_SELECTOR = '[data-cy=modal]';
+const MODAL_CLOSE_SELECTOR = '[data-cy=modal-close]';
+const CRATOR_BULKA = 'Краторная булка N-200i'
+
 describe('Перехват запроса на эндпоинт ingredients', () => {
   beforeEach(() => {
     cy.intercept('GET', `${BASE_URL}/ingredients`, {
@@ -10,12 +17,12 @@ describe('Перехват запроса на эндпоинт ingredients', ()
   });
   describe('Проверка сбора бургера', () => {
     it('Проверка добавления одного игредиента', () => {
-      cy.contains('li', 'Флюоресцентная булка R2-D3').find('button').click();
-      cy.contains('span', 'Флюоресцентная булка R2-D3').should('exist');
+      cy.contains('li', FLUORESCENT_BULKA).find('button').click();
+      cy.contains('span', FLUORESCENT_BULKA).should('exist');
     });
 
     it('Проверка добавления нескольких ингредиентов', () => {
-      cy.contains('li', 'Флюоресцентная булка R2-D3').find('button').click();
+      cy.contains('li', FLUORESCENT_BULKA).find('button').click();
 
       cy.contains('div', 'Начинки').click();
       cy.contains('li', 'Филе Люминесцентного тетраодонтимформа')
@@ -26,36 +33,36 @@ describe('Перехват запроса на эндпоинт ingredients', ()
     });
 
     it('Проверка смена булки', () => {
-      cy.contains('li', 'Краторная булка N-200i').find('button').click();
-      cy.contains('li', 'Флюоресцентная булка R2-D3').find('button').click();
+      cy.contains('li', CRATOR_BULKA).find('button').click();
+      cy.contains('li', FLUORESCENT_BULKA).find('button').click();
 
-      cy.contains('span', 'Флюоресцентная булка R2-D3');
-      cy.contains('span', 'Краторная булка N-200i').should('not.exist');
+      cy.contains('span', FLUORESCENT_BULKA);
+      cy.contains('span', CRATOR_BULKA).should('not.exist');
     });
   });
 
   describe('Проверка работы модальных окон', () => {
     it('Проверка открытия модального окна ингредиента', () => {
-      cy.contains('li', 'Мясо бессмертных моллюсков Protostomia').click();
+      cy.contains('li', MOLUSK_MEAT).click();
       cy.wait(1000);
 
-      const modal = cy.get(`[data-cy=modal]`);
+      const modal = cy.get(MODAL_SELECTOR);
       modal.should('exist');
 
-      const close = cy.get(`[data-cy=modal-close]`);
+      const close = cy.get(MODAL_CLOSE_SELECTOR);
       close.should('exist');
 
       modal.contains('h3', 'Детали ингредиента');
-      cy.contains('h3', 'Мясо бессмертных моллюсков Protostomia');
+      cy.contains('h3', MOLUSK_MEAT);
     });
 
     it('Проверка закрытия модального окна ингредиентов по клику', () => {
-      cy.contains('li', 'Мясо бессмертных моллюсков Protostomia').click();
+      cy.contains('li', MOLUSK_MEAT).click();
 
-      const modal = cy.get(`[data-cy=modal]`);
+      const modal = cy.get(MODAL_SELECTOR);
       modal.should('exist');
 
-      const close = cy.get(`[data-cy=modal-close]`);
+      const close = cy.get(MODAL_CLOSE_SELECTOR);
       close.should('exist');
 
       modal.contains('h3', 'Детали ингредиента');
@@ -65,14 +72,14 @@ describe('Перехват запроса на эндпоинт ingredients', ()
     });
 
     it('Проверка закрытия модального окна ингредиентов по клавише esc', () => {
-      cy.contains('li', 'Мясо бессмертных моллюсков Protostomia').click();
+      cy.contains('li', MOLUSK_MEAT).click();
 
-      const modal = cy.get(`[data-cy=modal]`);
+      const modal = cy.get(MODAL_SELECTOR);
       modal.should('exist');
 
       cy.get('body').type('{esc}');
 
-      cy.get(`[data-cy=modal]`).should('not.exist');
+      cy.get(MODAL_SELECTOR).should('not.exist');
     });
   });
 
@@ -91,7 +98,7 @@ describe('Перехват запроса на эндпоинт ingredients', ()
     });
 
     it('Проверка создания заказа', () => {
-      cy.contains('li', 'Краторная булка N-200i').find('button').click();
+      cy.contains('li', CRATOR_BULKA).find('button').click();
 
       cy.contains('div', 'Начинки').click();
       cy.contains('li', 'Филе Люминесцентного тетраодонтимформа')
@@ -103,9 +110,9 @@ describe('Перехват запроса на эндпоинт ingredients', ()
       cy.contains('button', 'Оформить заказ').click();
       cy.wait('@createOrder');
 
-      const modal = cy.get(`[data-cy=modal]`);
+      const modal = cy.get(MODAL_SELECTOR);
       modal.should('exist');
-      const close = cy.get(`[data-cy=modal-close]`);
+      const close = cy.get(MODAL_CLOSE_SELECTOR);
       close.should('exist');
 
       cy.contains('p', 'идентификатор заказа');
